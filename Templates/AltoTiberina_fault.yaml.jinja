@@ -12,14 +12,14 @@
       groups: [65]
       components: !ConstantMap
         map:
-          mu_s: 0.37
+          mu_s: {{mu_s}}
     - !ConstantMap
         map:
-          mu_s: 0.6    
+          mu_s: {{mu_s}}
 
 [d_c]: !ConstantMap
         map:
-          d_c: 0.4
+          d_c: {{d_c}}
 [forced_rupture_time]: !Include AltoTiberina_forced_rupture_time.yaml
 [cohesion]: !LuaMap
   returns: [cohesion]

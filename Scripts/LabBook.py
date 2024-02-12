@@ -2,14 +2,28 @@
 
 class LabBook:
     # def __init__(self, file_path)
-    def __init__(self, input_file_path):
-        experiment_title= "Mathilde's parameter study"
+    def __init__(self, input_file_path, output_file_path="../Outputs/LabBook.csv"):
+        """
+        Default constructor
+
+        :param str input_file_path: Path to input file with ids, parameters and values
+        :param str output_file_path: Path to the file in which the LabBook is stored
+        :return: LabBook-handle
+        :rtype: LabBook
+        :raises FileError: if input_file_path does not exist
+        """
+        # name of parameter study
+        self.experiment_title= "Mathilde's parameter study"
         # test= "iris"
-        self.output_file_path= "../Outputs/LabBook.csv"
+        self.input_file_path= input_file_path
+        self.output_file_path= output_file_path
+        # Todo: generate the header string from the slurm params in template_parameters.py
         self.header_string= ",should_run, queued, slurm_id, submission_date,finish_date,run_time,cpu_hours,stored2sdl,stored2sdl_date,stored2sdl_dataset,stored2sdl_dataproduct\n"
-        self.filler_string= ",True,False,NaN, NaN,NaN,NaN,NaN,False,NaN,NaN,NaN,\n"
+        # Todo: generate the filler string from the slurm default params in template:parameters.py
+        self.filler_string= ",True,False,NaN,NaN,NaN,NaN,NaN,False,NaN,NaN,NaN,\n"
         #self.filler_string = ",True,False,,,,,False,,,,\n"
 
+        # Todo: Rework to open with Pandas and keep file as DataFrame
         # generate file output_file_path only if it does not exists
         # can you open a file in append mode and keep the "file handle" open?
         # don't fill it with the content

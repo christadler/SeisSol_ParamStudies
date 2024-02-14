@@ -9,7 +9,7 @@ class ParamStudyTemplate:
         self.job_id= '003'
         self.xha= '298075.0,4808050.0,-3039.31'
     def __build_slurm_template(self):
-        with (open('../Templates/SeisSol_slurm_tmpl.jinja') as f):
+        with (open('../Inputs/Templates/SeisSol_slurm_tmpl.jinja') as f):
             slurm_tmpl = Template(f.read())
 
         with open(f"../Submissions/{self.job_id}/{tp_job_name}_{self.job_id}.slurm", mode="w") as f:
@@ -20,7 +20,7 @@ class ParamStudyTemplate:
                                       email= tp_slurm_email))
 
     def __build_xha_template(self):
-        with (open('../Templates/AltoTiberina_forced_rupture_time.yaml.jinja') as f):
+        with (open('../Inputs/Templates/AltoTiberina_forced_rupture_time.yaml.jinja') as f):
             xha_tmpl = Template(f.read())
 
         with open(f"../Submissions/{self.job_id}/AltoTiberina_forced_rupture_time.yaml", mode="w") as f:

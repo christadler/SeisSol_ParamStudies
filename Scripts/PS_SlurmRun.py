@@ -5,26 +5,34 @@ from template_parameters import *
 
 class PS_SlurmRun:
     def __init__(self):
-        print("Constructor PS_SlurmRun Class")
-        # get a list of all jobs that need to be submitted
-        self.slurm_job_list= self.__fill_slurm_job_list()
-        print(f"self.slurm_job_list= {self.slurm_job_list}")
+        print("PS_SlurmRun: Constructor")
 
-        # check if some jobs have been submitted
-
+        #  Check if the csv slurm file already exists
         self.slurm_csv_fn= f"{slurm_runs_csv_file_dir}/{slurm_runs_csv_file}"
-        #  check if the csv slurm file already exists
-        #  if not, generate the file
         if not pathlib.Path(self.slurm_csv_fn).is_file():
-            print("slurm file needs to be generated")
-            self.__generate_slurm_file()
-        print("slurm file now definitely exists")
+            print("PS_SlurmRun: slurm file needs to be generated")
+            #  ... if not, generate the file
+            self.__generate_slurm_csv_file()
+        print("PS_SlurmRun: slurm file now definitely exists")
+
+        #  Generate dataframe from slurm csv file
+        self.slurm_df= pd.read_csv(self.slurm_csv_fn)
+
+        # Get a list of all jobs that need to be submitted
+        #   either from slurm_job_list (in template_parameters.py)
+        #   or from all entries in parameter_study_list.csv where "run?" is True
+        self.slurm_job_list= self.__fill_slurm_job_list()
+        print(f"PSS_SlurmRun: self.slurm_job_list= {self.slurm_job_list}")
 
         # read out the information of already submitted and running jobs (all ids)
-        self.psr_df = pd.read_csv(self.slurm_csv_fn)
 
-
-    def __generate_slurm_file(self):
+    def is_running(self, job_id):
+        ret= False
+        s= self.slurm_df.id
+        print(s)
+        print(f"is_running: {job_id} {ret}")
+        return(ret)
+    def __generate_slurm_csv_file(self):
         print("PS_SlurmRun: generate slurm file")
 
         # generate slurm_file/df from content of parameter_study_list_file
@@ -35,8 +43,9 @@ class PS_SlurmRun:
         # add all missing columns to df and write to file
         for key in slurm_runs_entries.keys():
             ps_slurm_df[f"{key}"] = slurm_runs_entries[key]
+
         ps_slurm_df.to_csv(self.slurm_csv_fn, index= False)
-        print(ps_slurm_df)
+        # print(ps_slurm_df)
 
     def __fill_slurm_job_list(self):
         # if list is empty it will be filled with all jobs where "run?" is "True"
@@ -56,11 +65,13 @@ class PS_SlurmRun:
     # check in csv parameter file which jobs should run (pd.df)
     # compare with csv slurm file which have not yet run
     def find_next_slurm_id(self):
-        id= self.slurm_job_list[0]
-        print(f"PS_SlurmRun find_next with id= {id}")
-        #  return id and delete it from the list
-        #  (or move it to the list of scheduled runs?)
-        return(id)
+        #  as long as list has entries,
+        #  take and eliminate first element of list
+        if not self.slurm_job_list:
+            job_id= self.slurm_job_list.pop()
+            print(f"PS_SlurmRun find_next with id= {job_id}")
+            return(job_id)
+        return(False)
 
     # start the run for id
     # 1. create templates

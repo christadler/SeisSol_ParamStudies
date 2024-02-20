@@ -55,3 +55,6 @@ ulimit -Ss 2097152
 # TODO: Copy file ../Outputs/job_name_job_id.par to the right directory
 # TODO: Or maybe better: set working_dir in the beginning to something useful
 mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameter_{{job_name}}_{{job_id}}.par
+
+# fill in the job information
+python finish_job_and_start_next.py {{job_id}} $SLURM_JOB_ID

@@ -72,7 +72,7 @@ slurm_runs_entries={"scheduled?": "False",
 # Allow the user to specify in which order the jobs will be submitted
 # if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
-slurm_job_list= [10]
+slurm_job_list= [5, 10, 14]
 
 """
     Step 3: Data products & verification

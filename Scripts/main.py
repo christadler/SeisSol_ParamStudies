@@ -6,6 +6,7 @@ from PS_SlurmRun import *
 
 psr= PS_SlurmRun()
 next_id= psr.find_next_slurm_id()
+print(psr.is_running(next_id))
 
 #  outdated below
 # input_file_path= "../Inputs/parameter_study_list.csv"

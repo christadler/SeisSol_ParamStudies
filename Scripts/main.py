@@ -1,11 +1,13 @@
-from PSTemplates import *
+from PS_Templates import *
+from PS_SlurmRun import *
 
-pst= PSTemplate()
-pst.build_all_templates(9)
+# pst= PS_Template()
+# pst.build_all_templates(id=9)
 
-#pst= ParamStudyTemplate()
-#pst.build_all_templates()
+psr= PS_SlurmRun()
+next_id= psr.find_next_slurm_id()
 
+#  outdated below
 # input_file_path= "../Inputs/parameter_study_list.csv"
 # lb= LabBook(input_file_path)
 # lb.initialize(input_file_path)

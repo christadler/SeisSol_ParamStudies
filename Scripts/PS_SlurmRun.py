@@ -28,7 +28,7 @@ class PS_SlurmRun:
 
     def is_running(self, job_id):
         ret= False
-        s= self.slurm_df.id
+        s= self.slurm_df['running?']
         print(s)
         print(f"is_running: {job_id} {ret}")
         return(ret)
@@ -80,3 +80,11 @@ class PS_SlurmRun:
     def run(self, id):
         print("run is not implemented yet")
 
+    def finished(self, job_id, timestamp, slurm_job_id):
+        # if slurm_job_id != self.check_slurm_job_id(job_id):
+        #     warning("slurm Job ID doesn't match!")
+        self.register(job_id, "finished?", timestamp, slurm_job_id)
+
+    def register(self, job_id, field, timestamp, slurm_job_id):
+        print(self.slurm_df[field])
+        # change entry in Pandas DF and CVS file

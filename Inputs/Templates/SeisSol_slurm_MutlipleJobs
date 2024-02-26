@@ -1,31 +1,34 @@
 #!/bin/bash
 # Job Name and Files (also --job-name)
-#SBATCH -J {{job_name}}_{{job_id}}
 
+#SBATCH -J MathildeTest_multi
 #Output and error (also --output, --error):
 #SBATCH -o ./%j.%x.out
 #SBATCH -e ./%j.%x.err
 
 #Initial working directory:
-#SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/{{job_id}}
+#SBATCH --chdir=/hppfs/work/pn49ha/ra35zih2/MathildeTest/
 
 #Notification and type
 #SBATCH --mail-type=END
-#SBATCH --mail-user={{email}}
+#SBATCH --mail-user=marchandon@geophysik.uni-muenchen.de
 
 # Wall clock limit:
-#SBATCH --time=00:30:00
+# 6 runs, 40 min each, 240 min = 4h
+#SBATCH --time=04:00:00
 #SBATCH --no-requeue
 
 #Setup of execution environment
 #SBATCH --export=ALL
-#SBATCH --account={{group}}
+#SBATCH --account=pn49ha
 #constraints are optional
 #--constraint="scratch&work"
-#SBATCH --partition=test
+# micro partition for tests, general for production
+#SBATCH --partition=micro
 
 #Number of nodes and MPI tasks per node:
-#SBATCH --nodes=16
+# --nodes=48
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 module load slurm_setup
 
@@ -51,10 +54,22 @@ source /etc/profile.d/modules.sh
 
 echo 'num_nodes:' $SLURM_JOB_NUM_NODES 'ntasks:' $SLURM_NTASKS 'cpus_per_task:' $SLURM_CPUS_PER_TASK
 ulimit -Ss 2097152
-
-# TODO: Copy file ../Outputs/job_name_job_id.par to the right directory
-# TODO: Or maybe better: set working_dir in the beginning to something useful
-mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameter_{{job_name}}_{{job_id}}.par
-
-# fill in the job information
- #python register_job_and_start_next.py {{job_id}} $SLURM_JOB_ID
+cd 0014/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ../
+cd 0016/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ../
+cd 0018/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ..
+cd 0020/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ..
+cd 0021/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ..
+cd 0023/
+mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
+cd ..
+#wait

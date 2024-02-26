@@ -1,12 +1,14 @@
 from PS_Templates import *
+from template_parameters import *
 from PS_SlurmRun import *
 
-# pst= PS_Template()
-# pst.build_all_templates(id=9)
+pst= PS_Template()
+for job_id in slurm_job_list:
+    pst.build_all_templates(id=job_id)
 
-psr= PS_SlurmRun()
-next_id= psr.find_next_slurm_id()
-print(psr.is_running(next_id))
+# psr= PS_SlurmRun()
+# next_id= psr.find_next_slurm_id()
+# print(psr.is_running(next_id))
 
 #  outdated below
 # input_file_path= "../Inputs/parameter_study_list.csv"

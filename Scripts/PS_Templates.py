@@ -1,6 +1,8 @@
 import pandas as pd
 from jinja2 import Template
 from pathlib import Path
+import shutil
+import os
 
 from template_parameters import *
 
@@ -40,9 +42,14 @@ class PS_Template:
     def build_all_templates(self, id):
         # create a directory for the jobId in folder "Outputs"
         Path(f"../Outputs/{id:{self.digits}}").mkdir(parents=True, exist_ok=True)
+
         # copy over all files that need no adjustment
-        #  for file in ../Inputs/Files
-        #     cp file to ../Outputs/{id}
+        #  from ../Inputs/Files to ../Outputs/{id}
+        src_dir  = "../Inputs/Files/"
+        dest_dir = f"../Outputs/{id:{self.digits}}"
+        # files = os.listdir(src_dir)
+        shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+
 
         # build parameter files
         for tmpl_name in tp_list:

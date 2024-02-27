@@ -1,0 +1,8 @@
+!Switch
+[plastCo]: !EvalModel
+    parameters: [mu]
+    model: !Switch
+       [mu]: !Include AltoTiberina_rhomulambda1D.yaml
+    components: !FunctionMap
+      map: 
+        plastCo: 0.0001*mu;

@@ -1,21 +1,21 @@
 #!/bin/bash
 # Job Name and Files (also --job-name)
 
-#SBATCH -J MathildeTest_multi
+#SBATCH -J MathildeTest_jobFarm
 #Output and error (also --output, --error):
-#SBATCH -o ./%j.%x.out
-#SBATCH -e ./%j.%x.err
+#SBATCH -o ./%j.%x.%N.out
+#SBATCH -e ./%j.%x.%N.err
 
 #Initial working directory:
-#SBATCH --chdir=/hppfs/work/pn49ha/ra35zih2/MathildeTest/
+#SBATCH --chdir=/hppfs/work/pn49ha/di35ban/MathildeTest/
 
 #Notification and type
 #SBATCH --mail-type=END
-#SBATCH --mail-user=marchandon@geophysik.uni-muenchen.de
+#SBATCH --mail-user=christadler@geophysik.uni-muenchen.de
 
 # Wall clock limit:
 # 6 runs, 40 min each, 240 min = 4h
-#SBATCH --time=04:00:00
+#SBATCH --time=00:10:00
 #SBATCH --no-requeue
 
 #Setup of execution environment
@@ -34,6 +34,10 @@
 #SBATCH --ntasks-per-node=1
 # no longer necessary
 #module load slurm_setup
+module load gcc
+module load cmake/3.21.4
+module load python/3.8.11-extended
+module load numactl/2.0.14-intel21
 
 # keep this
 #SBATCH --ear=off
@@ -76,4 +80,8 @@ cd ..
 cd 0023/
 mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameters.par
 cd ..
+
+
+printenv
+module list
 #wait

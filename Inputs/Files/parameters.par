@@ -51,7 +51,7 @@ refinement = 0
 /
             
 &MeshNml
-MeshFile = '../../mesh/mesh_AltoTiberina_topo1km_7faults_smooth_v3'             ! Name of mesh file
+MeshFile = '../mesh/mesh_topo1km_7faults_smooth_v3_smallz'             ! Name of mesh file
 meshgenerator = 'PUML'                         ! Name of meshgenerator (Gambit3D-fast, Netcdf or PUML)
 /
 
@@ -64,7 +64,7 @@ ClusteredLTS = 2                               ! 1 for Global time stepping, 2,3
 
 &Output
 FaultOutputFlag = 1                            ! DR output (add this line only if DR is active)
-OutputFile = '/hppfs/scratch/0C/ra35zih2/AltoTiberina/test_5/output31/sim'
+OutputFile = '/hppfs/scratch/0A/di35ban/AltoTiberina/output/0017'
 Format = 6                                    ! Format (10= no output, 6=hdf5 output)
 !             |stress     |vel
 iOutputMask = 0 0 0 0 0 0 1 1 1

@@ -19,7 +19,7 @@ tp_param_list = ["nucleation", "d_c", "y", "mu_s", "R"]
 
 # list of all jinja template files (except slurm tmpl for stage 2)
 # to be filled by user
-# stored in dir "../Input/Templates/*.jinja"
+# stored in dir "../Input/Templates/*SeisSol_slurm_JobFarm.slurm.jinja"
 # "AltoTiberina_forced_rupture_time.yaml" (xha) currently not used
 tp_list = ["AltoTiberina_fault.yaml",
            "AltoTiberina_initial_stress.yaml",
@@ -40,12 +40,15 @@ tp_mapping = { "AltoTiberina_fault.yaml" : ["mu_s", "d_c"],
 # the slurm template
 # stored in dir "../Input/Templates/"
 tp_slurm= "SeisSol_slurm_tmpl.jinja"
+tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
 
 # other parameters for slurm template
 tp_job_name = 'MathildeTest'
 tp_slurm_group = 'pn49ha'
-tp_slurm_account = 'ra35zih2'
-tp_slurm_email = 'marchandon@geophysik.uni-muenchen.de'
+tp_slurm_account = 'di35ban'
+tp_slurm_email = 'christadler@geophysik.uni-muenchen.de'
+# tp_slurm_account = 'ra35zih2'
+# tp_slurm_email = 'marchandon@geophysik.uni-muenchen.de'
 
 # the csv file with all information on slurm runs
 # first line: "id" "scheduled?" "running?" "ended?"
@@ -74,7 +77,9 @@ slurm_runs_entries={"scheduled?": "False",
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
 # slurm_job_list= [5, 10, 14]
 # slurm_job_list=[]
-slurm_job_list= [14,16,18,20,21,23]
+# slurm_job_list= [14,16,18,20,21,23]
+slurm_job_list= [14,16]
+
 
 """
     Step 3: Data products & verification

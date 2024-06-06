@@ -6,6 +6,9 @@ pst= PS_Template()
 for job_id in slurm_job_list:
     pst.build_all_templates(id=job_id)
 
+pst.build_new_slurm_templates(slurm_job_list)
+
+
 
 
 

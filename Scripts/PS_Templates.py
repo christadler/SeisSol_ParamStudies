@@ -28,6 +28,29 @@ class PS_Template:
         # and automatically build the dir's (but this could be done later)
         # either for all templates or for all templates from a list
 
+    def build_new_slurm_templates(self, job_list):
+        print("build_new_slurm_templates")
+        with (open(f"../Inputs/Templates/{tp_slurm_jobFarm}") as f):
+            slurm_tmpl = Template(f.read())
+
+        # TODO: This needs to be extended to run for more than 5 jobs
+        curr_job_list= ""
+        for i in range(5):
+            index= 0
+            if index+i < len(job_list):
+                curr_job_list+= f"{job_list[index+i]:{self.digits}} "
+        print(curr_job_list)
+
+        for _ in range(2):
+            id= 0
+            with open(f"../Outputs/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
+                f.write(slurm_tmpl.render(job_name = tp_job_name,
+                                          job_list= curr_job_list,
+                                          group= tp_slurm_group,
+                                          account= tp_slurm_account,
+                                          email= tp_slurm_email))
+
+
     def __build_slurm_template(self, id):
         with (open(f"../Inputs/Templates/{tp_slurm}") as f):
             slurm_tmpl = Template(f.read())

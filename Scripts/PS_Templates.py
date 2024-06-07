@@ -29,26 +29,39 @@ class PS_Template:
         # either for all templates or for all templates from a list
 
     def build_new_slurm_templates(self, job_list):
+        # pre-build the jobFarming in the output directory
+        # for all jobs in job_list
+
         print("build_new_slurm_templates")
         with (open(f"../Inputs/Templates/{tp_slurm_jobFarm}") as f):
             slurm_tmpl = Template(f.read())
 
-        # TODO: This needs to be extended to run for more than 5 jobs
-        curr_job_list= ""
-        for i in range(5):
-            index= 0
-            if index+i < len(job_list):
-                curr_job_list+= f"{job_list[index+i]:{self.digits}} "
-        print(curr_job_list)
+        # compute num of job scripts that you need
+        # slurm_jobfarming_num from template_parameters.py
+        #    is the number of jobs in one jobFarming-Script
+        num_jobs= len(job_list)
+        num_jobs_jobfarming= num_jobs//slurm_jobfarming_num
+        num_jobs_rest= num_jobs%slurm_jobfarming_num
+        #  if there is a rest you need one more jobFarming script
+        if num_jobs_rest>0:
+            num_jobs_jobfarming+= 1
+        print(f"num_jobs: {num_jobs} num_jobs_jobfarming: {num_jobs_jobfarming} num_jobs_rest {num_jobs_rest}")
 
-        for _ in range(2):
-            id= 0
+        for id in range(num_jobs_jobfarming):
+            index= id*slurm_jobfarming_num
+            curr_job_list = ""
+            for i in range(slurm_jobfarming_num):
+                if index + i < len(job_list):
+                    curr_job_list += f"{job_list[index + i]:{self.digits}} "
+            print(f" id: {id} curr_job_list: {curr_job_list}")
             with open(f"../Outputs/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
                 f.write(slurm_tmpl.render(job_name = tp_job_name,
                                           job_list= curr_job_list,
                                           group= tp_slurm_group,
                                           account= tp_slurm_account,
-                                          email= tp_slurm_email))
+                                          email= tp_slurm_email,
+                                          postprocessing_cmd1= postprocessing_cmd1,
+                                          postprocessing_cmd2= postprocessing_cmd2))
 
 
     def __build_slurm_template(self, id):

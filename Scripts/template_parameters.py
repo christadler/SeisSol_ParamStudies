@@ -55,7 +55,7 @@ tp_slurm_email = 'christadler@geophysik.uni-muenchen.de'
 # other lines:<id> <parameter1_value> <parameter2_value> ... <parameterN_value> <True/False>
 # stored in dir "../Output/"
 slurm_runs_csv_file_dir= "../Outputs"
-slurm_runs_csv_file= "slurm_runs_list.csv"
+# slurm_runs_csv_file= "slurm_runs_list.csv"
 slurm_runs_entries={"scheduled?": "False",
                     "running?": "False",
                     "finished?": "False",
@@ -77,13 +77,26 @@ slurm_runs_entries={"scheduled?": "False",
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
 # slurm_job_list= [5, 10, 14]
 # slurm_job_list=[]
-# slurm_job_list= [14,16,18,20,21,23]
-slurm_job_list= [14,16]
+slurm_job_list= [14,16,18,20,21,23, 24, 25, 26, 27, 30]
+# slurm_job_list= [14,16]
 
+# the number of jobs in _one_ jobFarming-Script
+# compute this as: max_queue_runtime/(job_runtime+postprocessing_runtime)
+slurm_jobfarming_num= 5
 
 """
     Step 3: Data products & verification
 """
+#  will be done directly by adjusting the slurm file
+#  TODO: add here the two scripts
+#        or add a postprocessing bash/phyton script
+#        in all directories that is then called
+#        that might be difficult since it will be in the wrong place ($WORK not $SCRATCH)
+# /SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py
+# myfile='outputnew/AltoTiberina_1DLatorre_Ro070_us037_Dc04_nuc2-surface.xdmf'
+# srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
+postprocessing_cmd1= "pwd"
+postprocessing_cmd2= "date"
 
 """
     Step 4: Upload to SDL

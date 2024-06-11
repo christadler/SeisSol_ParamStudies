@@ -38,8 +38,8 @@ SlipRateOutputType=0        ! 0: (smoother) slip rate output evaluated from the 
 ! parameterize paraview file output
 &Elementwise
 printIntervalCriterion = 2                     ! 1=iteration, 2=time
-printtimeinterval_sec = 0.5                   ! Time interval at which output will be written
-OutputMask = 1 1 1 1 1 1 1 1 1 1 1             ! turn on and off fault outputs
+printtimeinterval_sec = 1                   ! Time interval at which output will be written
+OutputMask = 1 1 0 1 1 1 1 1 1 0 0              ! turn on and off fault outputs
 refinement_strategy = 2
 refinement = 0
 /
@@ -67,16 +67,24 @@ FaultOutputFlag = 1                            ! DR output (add this line only i
 OutputFile = '{{tp_output_file_dir}}/{{id}}/{{id}}'
 Format = 6                                    ! Format (10= no output, 6=hdf5 output)
 !             |stress     |vel
-iOutputMask = 0 0 0 0 0 0 1 1 1
+iOutputMask = 0 0 0 0 0 0 0 0 0
 !                 |strain     |eta
-iPlasticityMask = 1 1 1 1 1 1 1
-TimeInterval =  1.                           ! Index of printed info at time
+iPlasticityMask = 0 0 0 0 0 0 0
+TimeInterval =  100.                           ! Index of printed info at time
 refinement = 0
+
+! off-fault ascii receivers
+RFileName = '../mesh/receiver_mesh_topo1km_7_faults_smoothed_v3_smallz.txt'    ! Record Points in extra file
+pickdt = 0.01                                  ! Pickpoint Sampling
+pickDtType = 1                                 ! Pickpoint Type
+! (Optional) Synchronization point for receivers.
+!            If omitted, receivers are written at the end of the simulation.
+ReceiverOutputInterval = 1.0
 
 ! Free surface output
 SurfaceOutput = 1
 SurfaceOutputRefinement = 0
-SurfaceOutputInterval = 0.5
+SurfaceOutputInterval = 0.02
 
 printIntervalCriterion = 2          ! Criterion for index of printed info: 1=timesteps,2=time,3=timesteps+time
 

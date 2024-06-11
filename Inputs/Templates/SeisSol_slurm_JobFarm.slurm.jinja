@@ -61,6 +61,7 @@ for i in "${array[@]}"
 do
         echo "$i"
         cd $i
+        mkdir -p {{tp_output_file_dir}}/$i/
         mpiexec -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
         {{postprocessing_cmd1}}
         {{postprocessing_cmd2}}

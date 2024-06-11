@@ -11,10 +11,6 @@ from template_parameters import *
  This class reads from the csv file 
  and builds all templates for one id
  
- The slurm class will search for the next id that needs to run
- asks PSTemplate to generate everything for the id
- run and add information about the run after the run
- 
 """
 class PS_Template:
 
@@ -27,10 +23,13 @@ class PS_Template:
         # it would also be possible to just go through the template folder
         # and automatically build the dir's (but this could be done later)
         # either for all templates or for all templates from a list
+        shutil.rmtree("../Outputs/")
+        os.mkdir("../Outputs/")
+
 
     def build_new_slurm_templates(self, job_list):
-        # pre-build the jobFarming in the output directory
-        # for all jobs in job_list
+        # pre-build the jobFarming.slurm scripts in the output directory
+        # for all jobs in job_list (separated in slurm_jobfarming_chunks)
 
         print("build_new_slurm_templates")
         with (open(f"../Inputs/Templates/{tp_slurm_jobFarm}") as f):
@@ -40,17 +39,17 @@ class PS_Template:
         # slurm_jobfarming_num from template_parameters.py
         #    is the number of jobs in one jobFarming-Script
         num_jobs= len(job_list)
-        num_jobs_jobfarming= num_jobs//slurm_jobfarming_num
-        num_jobs_rest= num_jobs%slurm_jobfarming_num
+        num_jobs_jobfarming= num_jobs // slurm_jobfarming_chunks
+        num_jobs_rest= num_jobs % slurm_jobfarming_chunks
         #  if there is a rest you need one more jobFarming script
         if num_jobs_rest>0:
             num_jobs_jobfarming+= 1
         print(f"num_jobs: {num_jobs} num_jobs_jobfarming: {num_jobs_jobfarming} num_jobs_rest {num_jobs_rest}")
 
         for id in range(num_jobs_jobfarming):
-            index= id*slurm_jobfarming_num
+            index= id * slurm_jobfarming_chunks
             curr_job_list = ""
-            for i in range(slurm_jobfarming_num):
+            for i in range(slurm_jobfarming_chunks):
                 if index + i < len(job_list):
                     curr_job_list += f"{job_list[index + i]:{self.digits}} "
             print(f" id: {id} curr_job_list: {curr_job_list}")
@@ -60,11 +59,13 @@ class PS_Template:
                                           group= tp_slurm_group,
                                           account= tp_slurm_account,
                                           email= tp_slurm_email,
+                                          tp_output_file_dir= tp_output_file_dir,
                                           postprocessing_cmd1= postprocessing_cmd1,
                                           postprocessing_cmd2= postprocessing_cmd2))
 
 
-    def __build_slurm_template(self, id):
+    def __build_slurmNparameters_template(self, id):
+        #  generate one slurm file in each directory to run this manually
         with (open(f"../Inputs/Templates/{tp_slurm}") as f):
             slurm_tmpl = Template(f.read())
 
@@ -73,7 +74,18 @@ class PS_Template:
                                       job_id= f"{id:{self.digits}}",
                                       group= tp_slurm_group,
                                       account= tp_slurm_account,
-                                      email= tp_slurm_email))
+                                      email= tp_slurm_email,
+                                      tp_output_file_dir= tp_output_file_dir))
+
+        #  generate the parameters.par file with the correct output dir
+        with (open(f"../Inputs/Templates/{tp_parameters}") as f):
+            slurm_tmpl = Template(f.read())
+
+        with open(f"../Outputs/{id:{self.digits}}/parameters.par", mode="w") as f:
+            f.write(slurm_tmpl.render(id = f"{id:{self.digits}}",
+                                      tp_output_file_dir= tp_output_file_dir
+                                      ))
+
 
     def build_all_templates(self, id):
         # create a directory for the jobId in folder "Outputs"
@@ -108,4 +120,4 @@ class PS_Template:
                 f.write(tmpl.render(**kwargs))
 
         # build slurm submission script
-        self.__build_slurm_template(id)
+        self.__build_slurmNparameters_template(id)

@@ -63,6 +63,9 @@ do
         cd $i
         mkdir -p {{tp_output_file_dir}}/$i/
         mpiexec -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
+        $myfile= {{tp_output_file_dir}}/$i/$i-surface.xdmf
+        /SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile
+        srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
         {{postprocessing_cmd1}}
         {{postprocessing_cmd2}}
         cd ..

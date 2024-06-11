@@ -23,7 +23,8 @@ tp_param_list = ["nucleation", "d_c", "y", "mu_s", "R"]
 # "AltoTiberina_forced_rupture_time.yaml" (xha) currently not used
 tp_list = ["AltoTiberina_fault.yaml",
            "AltoTiberina_initial_stress.yaml",
-           "AltoTiberina_sig_zz.yaml"]
+           "AltoTiberina_sig_zz.yaml",
+           "AltoTiberina_forced_rupture_time.yaml"]
 
 # mapping of parameters to jinja templates
 # to be filled by user
@@ -31,7 +32,8 @@ tp_list = ["AltoTiberina_fault.yaml",
 # "AltoTiberina_forced_rupture_time.yaml" : ["xha"],
 tp_mapping = { "AltoTiberina_fault.yaml" : ["mu_s", "d_c"],
                "AltoTiberina_initial_stress.yaml": ["R"],
-               "AltoTiberina_sig_zz.yaml": ["y"]
+               "AltoTiberina_sig_zz.yaml": ["y"],
+               "AltoTiberina_forced_rupture_time.yaml": ["xha_x", "xha_y", "xha_z"]
                }
 
 """
@@ -101,7 +103,9 @@ slurm_jobfarming_chunks= 10
 # myfile='outputnew/AltoTiberina_1DLatorre_Ro070_us037_Dc04_nuc2-surface.xdmf'
 # srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
 postprocessing_cmd1= "pwd"
+# postprocessing_cmd1= "/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py"
 postprocessing_cmd2= "date"
+# postprocessing_cmd2= "srun python -u
 
 """
     Step 4: Upload to SDL

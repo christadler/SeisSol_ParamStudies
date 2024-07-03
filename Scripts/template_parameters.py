@@ -53,7 +53,7 @@ tp_slurm_group = 'pn49ha'
 
 #  Iris
 tp_slurm_account = 'di35ban'
-tp_slurm_email = 'christadler@geophysik.uni-muenchen.de'
+tp_slurm_email = 'iris.christadler@lmu.de'
 tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs'
 
 #  Mathilde
@@ -80,7 +80,7 @@ slurm_runs_entries={"scheduled?": "False",
 # Allow the user to specify in which order the jobs will be submitted
 # if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
-slurm_job_list= [5, 10, 14]
+slurm_job_list= [1, 11, 21]
 # slurm_job_list=[]
 # slurm_job_list= [14,16,18,20,21,23, 24, 25, 26, 27, 30]
 # slurm_job_list= [14,16]

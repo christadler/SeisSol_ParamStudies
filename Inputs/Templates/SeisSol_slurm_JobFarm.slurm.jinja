@@ -7,7 +7,7 @@
 #SBATCH -e ./%j.%x.%N.err
 
 #Initial working directory:
-#SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/
+#SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/test_1
 
 #Notification and type
 #SBATCH --mail-type=END
@@ -62,11 +62,11 @@ do
         echo "ID: $i"
         cd $i
         mkdir -p {{tp_output_file_dir}}/$i/
-        mpiexec -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
+        srun -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
         $myfile={{tp_output_file_dir}}/$i/$i-surface.xdmf
         echo "Myfile: $myfile"
 #        Step 1:
-         srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
+#         srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
 #        Step 2:
 #        This will create a file named $filenameprefix-surface-resampled.xdmf
          python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time 90

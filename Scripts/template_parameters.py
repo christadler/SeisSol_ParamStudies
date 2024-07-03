@@ -48,7 +48,7 @@ tp_slurm= "SeisSol_slurm_tmpl.jinja"
 tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
 
 # parameters for slurm template
-tp_job_name = 'MathildeTest'
+tp_job_name = 'AltoTiberina'
 tp_slurm_group = 'pn49ha'
 
 #  Iris

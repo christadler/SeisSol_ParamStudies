@@ -53,6 +53,9 @@ class PS_Template:
                 if index + i < len(job_list):
                     curr_job_list += f"{job_list[index + i]:{self.digits}} "
             print(f" id: {id} curr_job_list: {curr_job_list}")
+
+            # SLURM_JOB_FARMING
+            # TODO: evtl. convert tp_params_endTime to integer
             with open(f"../Outputs/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
                 f.write(slurm_tmpl.render(job_name = tp_job_name,
                                           job_list= curr_job_list,
@@ -60,6 +63,7 @@ class PS_Template:
                                           account= tp_slurm_account,
                                           email= tp_slurm_email,
                                           tp_output_file_dir= tp_output_file_dir,
+                                          tp_params_endTime_int= int(float(tp_params_endTime)),
                                           postprocessing_cmd1= postprocessing_cmd1,
                                           postprocessing_cmd2= postprocessing_cmd2))
 
@@ -69,6 +73,7 @@ class PS_Template:
         with (open(f"../Inputs/Templates/{tp_slurm}") as f):
             slurm_tmpl = Template(f.read())
 
+        # SLURM file for each directory
         with open(f"../Outputs/{id:{self.digits}}/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
             f.write(slurm_tmpl.render(job_name = tp_job_name,
                                       job_id= f"{id:{self.digits}}",
@@ -77,13 +82,15 @@ class PS_Template:
                                       email= tp_slurm_email,
                                       tp_output_file_dir= tp_output_file_dir))
 
-        #  generate the parameters.par file with the correct output dir
+        #  PARAMETERS.PAR
         with (open(f"../Inputs/Templates/{tp_parameters}") as f):
             slurm_tmpl = Template(f.read())
 
         with open(f"../Outputs/{id:{self.digits}}/parameters.par", mode="w") as f:
             f.write(slurm_tmpl.render(id = f"{id:{self.digits}}",
-                                      tp_output_file_dir= tp_output_file_dir
+                                      tp_output_file_dir= tp_output_file_dir,
+                                      tp_params_mesh= tp_params_mesh,
+                                      tp_params_endTime= tp_params_endTime
                                       ))
 
 

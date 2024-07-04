@@ -1,4 +1,11 @@
+"""
+    Step 0: Set basic parameters
+"""
 
+slurm_modes= ("TEST", "PRODUCTION")
+slurm_mode= "TEST"
+user_names= ("IRIS", "MATHILDE")
+user_name= "IRIS"
 
 """
     Step 1: Parameters & templates
@@ -20,7 +27,7 @@ tp_param_list = ["nucleation", "d_c", "y", "mu_s", "R"]
 # list of all jinja template files (except slurm tmpl for stage 2)
 # to be filled by user
 # stored in dir "../Input/Templates/*SeisSol_slurm_JobFarm.slurm.jinja"
-# "AltoTiberina_forced_rupture_time.yaml" (xha) currently not used
+# "AltoTiberina_forced_rupture_time.yaml" (xha) is currently not used
 tp_list = ["AltoTiberina_fault.yaml",
            "AltoTiberina_initial_stress.yaml",
            "AltoTiberina_sig_zz.yaml",
@@ -51,32 +58,46 @@ tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
 tp_job_name = 'AltoTiberina'
 tp_slurm_group = 'pn49ha'
 
-# parameters for TEST runs
-tp_slurm_time= "00:30:00"
-tp_slurm_partition= "test"
-tp_slurm_nodes= "16"
-# the number of jobs in _one_ jobFarming-Script
-# compute this as: max_queue_runtime/lower(job_runtime+postprocessing_runtime)
-slurm_jobfarming_chunks= 3
 
-# parameters for GENERAL runs
-# tp_slurm_time= "24:00:00"
-# tp_slurm_partition= "general"
-# tp_slurm_nodes= "48"
-# slurm_jobfarming_chunks= 10
-#  if tp_slurm_nodes= 96, slurm_jobfarming_chunks= 20
+if slurm_mode == "TEST":
+    # parameters for TEST runs
+    print("Building a slurm script for a TEST run")
+    tp_slurm_time = "00:30:00"
+    tp_slurm_partition = "test"
+    tp_slurm_nodes = "16"
+    #  adapt the mesh
+    tp_params_mesh= "../../mesh/mesh_topo1km_7_faults_smoothed_v3_smallz"
+    tp_params_endTime= "2.0"
+    # the number of jobs in _one_ jobFarming-Script
+    # compute this as: max_queue_runtime/lower(job_runtime+postprocessing_runtime)
+    slurm_jobfarming_chunks = 3
+elif slurm_mode == "PRODUCTION":
+    print("Building a slurm script for a PRODUCTION run")
+    # parameters for GENERAL runs
+    tp_slurm_time = "24:00:00"
+    tp_slurm_partition = "general"
+    tp_slurm_nodes = "48"
+    #  adapt the mesh
+    tp_params_mesh = "../../mesh/mesh_topo1km_7_faults_smoothed_v3_smallz"
+    tp_params_endTime= "90.0"
+    slurm_jobfarming_chunks = 10
+    #  if tp_slurm_nodes= 96, slurm_jobfarming_chunks= 20
+else:
+    print("No known SLURM mode")
 
-#  Iris
-tp_slurm_account = 'di35ban'
-tp_slurm_email = 'iris.christadler@lmu.de'
-tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs'
-
-#  Mathilde
-# tp_slurm_account = 'ra35zih2'
-# tp_slurm_email = 'marchandon@geophysik.uni-muenchen.de'
-#  ... adapt to run in SCRATCH
-# tp_output_file_dir= '/hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs'
-
+if user_name == "IRIS":
+    print("Building a slurm script for Iris")
+    tp_slurm_account = 'di35ban'
+    tp_slurm_email = 'iris.christadler@lmu.de'
+    tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs'
+elif user_name == "MATHILDE":
+    print("Building a slurm script for Mathilde")
+    tp_slurm_account = 'ra35zih2'
+    tp_slurm_email = 'marchandon@geophysik.uni-muenchen.de'
+    #  ... adapt to run in SCRATCH
+    tp_output_file_dir= '/hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs'
+else:
+    print("No known USER")
 
 # This is not used, since we use jobFarming instead
 '''
@@ -95,7 +116,7 @@ slurm_runs_entries={"scheduled?": "False",
 # Allow the user to specify in which order the jobs will be submitted
 # if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
-slurm_job_list= [1, 11, 21]
+slurm_job_list= [2, 12, 22]
 # slurm_job_list=[]
 # slurm_job_list= [14,16,18,20,21,23, 24, 25, 26, 27, 30]
 # slurm_job_list= [14,16]

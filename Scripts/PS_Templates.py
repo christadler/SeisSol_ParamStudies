@@ -55,13 +55,15 @@ class PS_Template:
             print(f" id: {id} curr_job_list: {curr_job_list}")
 
             # SLURM_JOB_FARMING
-            # TODO: evtl. convert tp_params_endTime to integer
             with open(f"../Outputs/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
                 f.write(slurm_tmpl.render(job_name = tp_job_name,
                                           job_list= curr_job_list,
                                           group= tp_slurm_group,
                                           account= tp_slurm_account,
                                           email= tp_slurm_email,
+                                          tp_slurm_time= tp_slurm_time,
+                                          tp_slurm_partition= tp_slurm_partition,
+                                          tp_slurm_nodes= tp_slurm_nodes,
                                           tp_output_file_dir= tp_output_file_dir,
                                           tp_params_endTime_int= int(float(tp_params_endTime)),
                                           postprocessing_cmd1= postprocessing_cmd1,

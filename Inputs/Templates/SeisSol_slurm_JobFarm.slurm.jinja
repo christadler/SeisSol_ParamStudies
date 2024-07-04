@@ -10,9 +10,9 @@
 
 # (Group) Account, (max) Wall clock and Queue:
 #SBATCH --account={{group}}
-#SBATCH --time=00:30:00
+#SBATCH --time={{tp_slurm_time}}
 #SBATCH --no-requeue
-#SBATCH --partition=test
+#SBATCH --partition={{tp_slurm_partition}}
 
 # Turn off energy aware runtime
 #SBATCH --ear=off
@@ -23,7 +23,7 @@
 #SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/test_1/
 
 # Number of nodes and MPI tasks per node:
-#SBATCH --nodes=16
+#SBATCH --nodes={{tp_slurm_nodes}}
 #SBATCH --ntasks-per-node=1
 
 module load slurm_setup
@@ -59,13 +59,14 @@ do
         myfile={{tp_output_file_dir}}/$i/$i-surface.xdmf
         echo "Myfile: $myfile"
         cd {{tp_output_file_dir}}/$i/
-#        Step 1:
-         srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
-#        Step 2:
-#        This will create a file named $filenameprefix-surface-resampled.xdmf
-         python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time {{tp_params_endTime_int}}
-         {{postprocessing_cmd1}}
-         {{postprocessing_cmd2}}
+#       Step 1:
+#       srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP {{tp_slurm_nodes}}
+        {{postprocessing_cmd1}}
+
+#       Step 2:
+#       This will create a file named $filenameprefix-surface-resampled.xdmf
+#       python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time {{tp_params_endTime_int}}
+        {{postprocessing_cmd2}}
         rm $myfile
         pwd
         echo "cd -"

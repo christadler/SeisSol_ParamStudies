@@ -136,9 +136,9 @@ slurm_job_list= [2, 12, 22]
 # /SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py
 # myfile='outputnew/AltoTiberina_1DLatorre_Ro070_us037_Dc04_nuc2-surface.xdmf'
 # srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
-postprocessing_cmd1= "pwd"
+postprocessing_cmd1= 'srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP '+tp_slurm_nodes
 # postprocessing_cmd1= "/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py"
-postprocessing_cmd2= "date"
+postprocessing_cmd2= 'python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time '+str(int(float(tp_params_endTime)))
 # postprocessing_cmd2= "srun python -u
 
 """

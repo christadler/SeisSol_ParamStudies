@@ -51,6 +51,21 @@ tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
 tp_job_name = 'AltoTiberina'
 tp_slurm_group = 'pn49ha'
 
+# parameters for TEST runs
+tp_slurm_time= "00:30:00"
+tp_slurm_partition= "test"
+tp_slurm_nodes= "16"
+# the number of jobs in _one_ jobFarming-Script
+# compute this as: max_queue_runtime/lower(job_runtime+postprocessing_runtime)
+slurm_jobfarming_chunks= 3
+
+# parameters for GENERAL runs
+# tp_slurm_time= "24:00:00"
+# tp_slurm_partition= "general"
+# tp_slurm_nodes= "48"
+# slurm_jobfarming_chunks= 10
+#  if tp_slurm_nodes= 96, slurm_jobfarming_chunks= 20
+
 #  Iris
 tp_slurm_account = 'di35ban'
 tp_slurm_email = 'iris.christadler@lmu.de'
@@ -87,9 +102,7 @@ slurm_job_list= [1, 11, 21]
 # slurm_job_list= list(range(100))
 # print(f"slurm_job_list: {slurm_job_list}")
 
-# the number of jobs in _one_ jobFarming-Script
-# compute this as: max_queue_runtime/(job_runtime+postprocessing_runtime)
-slurm_jobfarming_chunks= 10
+
 
 """
     Step 3: Data products & verification

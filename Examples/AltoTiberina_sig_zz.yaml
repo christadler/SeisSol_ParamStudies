@@ -1,0 +1,11 @@
+!Switch
+[sig_zz]: !EvalModel
+    parameters: [z]
+    model: !Switch
+       [z]: !FunctionMap
+           map:
+             z: return z; 
+    components: !FunctionMap
+      map: 
+        sig_zz: |
+         return 2670.0*0.25*9.8*min(-200.0,z);

@@ -3,7 +3,7 @@
 """
 
 slurm_modes= ("TEST", "PRODUCTION")
-slurm_mode= "TEST"
+slurm_mode= "PRODUCTION"
 user_names= ("IRIS", "MATHILDE")
 user_name= "IRIS"
 
@@ -116,11 +116,11 @@ slurm_runs_entries={"scheduled?": "False",
 # Allow the user to specify in which order the jobs will be submitted
 # if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
-slurm_job_list= [2, 12, 22]
+# slurm_job_list= [2, 12, 22]
 # slurm_job_list=[]
 # slurm_job_list= [14,16,18,20,21,23, 24, 25, 26, 27, 30]
 # slurm_job_list= [14,16]
-# slurm_job_list= list(range(100))
+slurm_job_list= list(range(100))
 # print(f"slurm_job_list: {slurm_job_list}")
 
 

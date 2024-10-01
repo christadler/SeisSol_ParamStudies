@@ -1,4 +1,17 @@
-Disclaimer: This is work in progress... very chaotic
-I just wanted to share with you in a private repo the layout that Mathilde and I am working on...
+# SeisSol_ParamStudies
 
-Update 2024-06-24
+This is a bunch of generic scripts and templates 
+that allows you to use SeisSol (https://github.com/SeisSol/SeisSol) for parameter studies. 
+It was developed for DT-Geo (DTC-E4, Block 3) to generate 
+a catalogue for AltoTiberina.
+
+# Manual
+
+A Manual to adapt the workflow to arbitrary parameter studies
+can be found in the README directory
+
+# Requirements
+
+```bash
+python -m pip install -r requirements.txt
+```

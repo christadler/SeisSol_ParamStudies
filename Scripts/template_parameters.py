@@ -35,7 +35,6 @@ tp_list = ["AltoTiberina_fault.yaml",
 
 # mapping of parameters to jinja templates
 # to be filled by user
-# Todo: Add templates for nucleation
 # "AltoTiberina_forced_rupture_time.yaml" : ["xha"],
 tp_mapping = { "AltoTiberina_fault.yaml" : ["mu_s", "d_c"],
                "AltoTiberina_initial_stress.yaml": ["R"],
@@ -118,8 +117,6 @@ slurm_runs_entries={"scheduled?": "False",
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
 # slurm_job_list= [2, 12, 22]
 # slurm_job_list=[]
-# slurm_job_list= [14,16,18,20,21,23, 24, 25, 26, 27, 30]
-# slurm_job_list= [14,16]
 slurm_job_list= list(range(100))
 # print(f"slurm_job_list: {slurm_job_list}")
 

@@ -8,10 +8,14 @@ a catalogue for AltoTiberina.
 # Manual
 
 A Manual to adapt the workflow to arbitrary parameter studies
-can be found in the README directory
+can be found in the README directory.
 
 # Requirements
 
 ```bash
 python -m pip install -r requirements.txt
 ```
+
+# Future Developments
+
+The next step is to use the new Geo-INQUIRE SDL to save the catalogue.

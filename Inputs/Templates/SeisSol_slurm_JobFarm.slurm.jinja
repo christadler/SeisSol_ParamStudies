@@ -19,8 +19,8 @@
 
 # Setup of execution environment
 #SBATCH --export=NONE
-# Initial working directory:
-#SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/test_1/
+# Initial working directory (also --chdir)
+#SBATCH -D ./
 
 # Number of nodes and MPI tasks per node:
 #SBATCH --nodes={{tp_slurm_nodes}}

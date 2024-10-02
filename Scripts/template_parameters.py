@@ -77,8 +77,7 @@ elif slurm_mode == "PRODUCTION":
     tp_slurm_partition = "general"
     tp_slurm_nodes = "48"
     #  adapt the mesh
-    tp_params_mesh = "../../mesh/mesh_topo1km_7_faults_smoothed_v3_smallz_1hz"
-    tp_params_receiver = "../../mesh/receiver_mesh_topo1km_7_faults_smoothed_v3_smallz_1hz"
+    tp_params_mesh = "mesh_topo1km_7_faults_smoothed_v3_smallz_1hz"
     tp_params_endTime= "90.0"
     slurm_jobfarming_chunks = 10
     #  if tp_slurm_nodes= 96, slurm_jobfarming_chunks= 20

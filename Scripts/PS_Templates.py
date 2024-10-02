@@ -92,6 +92,7 @@ class PS_Template:
             f.write(slurm_tmpl.render(id = f"{id:{self.digits}}",
                                       tp_output_file_dir= tp_output_file_dir,
                                       tp_params_mesh= tp_params_mesh,
+                                      tp_params_receiver= tp_params_receiver,
                                       tp_params_endTime= tp_params_endTime
                                       ))
 

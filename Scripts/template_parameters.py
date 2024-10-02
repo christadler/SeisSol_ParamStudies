@@ -57,7 +57,6 @@ tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
 tp_job_name = 'AltoTiberina'
 tp_slurm_group = 'pn49ha'
 
-
 if slurm_mode == "TEST":
     # parameters for TEST runs
     print("Building a slurm script for a TEST run")
@@ -88,7 +87,7 @@ if user_name == "IRIS":
     print("Building a slurm script for Iris")
     tp_slurm_account = 'di35ban'
     tp_slurm_email = 'iris.christadler@lmu.de'
-    tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs'
+    tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs2'
 elif user_name == "MATHILDE":
     print("Building a slurm script for Mathilde")
     tp_slurm_account = 'ra35zih2'
@@ -121,15 +120,10 @@ slurm_job_list= list(range(100))
 # print(f"slurm_job_list: {slurm_job_list}")
 
 
-
 """
     Step 3: Data products & verification
 """
-#  will be done directly by adjusting the slurm file
-#  TODO: add here the two scripts
-#        or add a postprocessing bash/phyton script
-#        in all directories that is then called
-#        that might be difficult since it will be in the wrong place ($WORK not $SCRATCH)
+#  will be done directly after the SeisSol run by adjusting the slurm file
 # /SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py
 # myfile='outputnew/AltoTiberina_1DLatorre_Ro070_us037_Dc04_nuc2-surface.xdmf'
 # srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48

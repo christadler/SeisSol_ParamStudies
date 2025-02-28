@@ -54,18 +54,20 @@ cd {{tp_output_file_dir}}; pwd
 for i in {0000..0099}; do
 do
         echo "ID: $i"
-        cd $i
-        myfile=$i-surface.xdmf
-        echo "Myfile: $myfile"
+        cd $i; pwd
+        myfile=$i-surface.xdmf; ls -al $myfile
+
 #       Step 1:
+        echo "Postprocessing Step1: ComputeGroundMotionParameters"
 #       srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP {{tp_slurm_nodes}}
         {{postprocessing_cmd1}}
 
 #       Step 2:
+        echo "Postprocessing Step2: Visualization"
 #       This will create a file named $filenameprefix-surface-resampled.xdmf
 #       python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time {{tp_params_endTime_int}}
         {{postprocessing_cmd2}}
-        echo "cd .."
+
         cd ..; pwd
 done
 

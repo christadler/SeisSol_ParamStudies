@@ -1,0 +1,12 @@
+!Any    
+   components:
+     - !GroupFilter
+       groups: [1,65]
+       components: !ConstantMap
+              map:
+                  alpha:  0.0
+     - !GroupFilter
+       groups: [66,67,68,69,70,71]
+       components: !ConstantMap
+              map:
+                  alpha: 0.0

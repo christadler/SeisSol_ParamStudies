@@ -95,6 +95,22 @@ class PS_Template:
                                       tp_params_endTime= tp_params_endTime
                                       ))
 
+    def __build_slurmPostprocessing_template(self):
+        #  generate one slurm file that does all the postprocessing
+        with (open(f"../Inputs/Templates/{tp_postprocessing}.jinja") as f):
+            slurm_tmpl = Template(f.read())
+
+        # SLURM file for postprocessing (GMP+visualization)
+        with open(f"../Outputs/{tp_postprocessing}", mode="w") as f:
+            f.write(slurm_tmpl.render(job_name = tp_job_name,
+                                      group= tp_slurm_group,
+                                      account= tp_slurm_account,
+                                      email= tp_slurm_email,
+                                      tp_output_file_dir= tp_output_file_dir,
+                                      postprocessing_cmd1= postprocessing_cmd1,
+                                      postprocessing_cmd2= postprocessing_cmd2))
+
+
 
     def build_all_templates(self, id):
         # create a directory for the jobId in folder "Outputs"
@@ -130,3 +146,5 @@ class PS_Template:
 
         # build slurm submission script
         self.__build_slurmNparameters_template(id)
+        # build postprocessing slurm script
+        self.__build_slurmPostprocessing_template()

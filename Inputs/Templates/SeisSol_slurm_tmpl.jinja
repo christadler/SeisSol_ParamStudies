@@ -1,34 +1,29 @@
 #!/bin/bash
-# This file is currently NOT USED
-# but kept here in the directory to allow single runs
-# if errors occur
 # Job Name and Files (also --job-name)
 #SBATCH -J {{job_name}}_{{job_id}}
+#SBATCH -o ./%j.%x.%N.out
+#SBATCH -e ./%j.%x.%N.err
 
-#Output and error (also --output, --error):
-#SBATCH -o ./%j.%x.out
-#SBATCH -e ./%j.%x.err
-
-#Initial working directory:
-#SBATCH --chdir=/hppfs/work/{{group}}/{{account}}/{{job_name}}/{{job_id}}
-
-#Notification and type
-#SBATCH --mail-type=END
+# Notification and type
+#SBATCH --mail-type=ALL
 #SBATCH --mail-user={{email}}
 
-# Wall clock limit:
-#SBATCH --time=00:30:00
-#SBATCH --no-requeue
-
-#Setup of execution environment
-#SBATCH --export=ALL
+# (Group) Account, (max) Wall clock and Queue:
 #SBATCH --account={{group}}
-#constraints are optional
-#--constraint="scratch&work"
-#SBATCH --partition=test
+#SBATCH --time={{tp_slurm_time}}
+#SBATCH --no-requeue
+#SBATCH --partition={{tp_slurm_partition}}
 
-#Number of nodes and MPI tasks per node:
-#SBATCH --nodes=16
+# Turn off energy aware runtime
+#SBATCH --ear=off
+
+# Setup of execution environment
+#SBATCH --export=NONE
+# Initial working directory (also --chdir)
+#SBATCH -D ./
+
+# Number of nodes and MPI tasks per node:
+#SBATCH --nodes={{tp_slurm_nodes}}
 #SBATCH --ntasks-per-node=1
 module load slurm_setup
 
@@ -58,7 +53,5 @@ ulimit -Ss 2097152
 # TODO: Copy file ../Outputs/job_name_job_id.par to the right directory
 # TODO: Or maybe better: set working_dir in the beginning to something useful
 mkdir -p {{tp_output_file_dir}}/{{job_id}}/
-mpiexec -n $SLURM_NTASKS temp_seissol/SeisSol_Release_dskx_4_elastic parameter.par
-
-# fill in the job information
- #python register_job_and_start_next.py {{job_id}} $SLURM_JOB_ID
+srun -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
+#mpiexec -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par

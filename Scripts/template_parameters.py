@@ -52,6 +52,7 @@ tp_parameters= "parameters.par.jinja"
 # stored in dir "../Input/Templates/"
 tp_slurm= "SeisSol_slurm_tmpl.jinja"
 tp_slurm_jobFarm= "SeisSol_slurm_JobFarm.slurm.jinja"
+tp_postprocessing= "SeisSol_slurm_Postprocessing.slurm"
 
 # parameters for slurm template
 tp_job_name = 'AltoTiberina'
@@ -64,12 +65,11 @@ if slurm_mode == "TEST":
     tp_slurm_partition = "test"
     tp_slurm_nodes = "16"
     #  adapt the mesh
-    tp_params_mesh= "../../mesh/mesh_topo1km_7_faults_smoothed_v3_smallz"
-    tp_params_receiver= "../../mesh/receiver_mesh_topo1km_7_faults_smoothed_v3_smallz"
-    tp_params_endTime= "2.0"
+    tp_params_mesh= "mesh_AltoTiberina_small"
+    tp_params_endTime= "3.0"
     # the number of jobs in _one_ jobFarming-Script
     # compute this as: max_queue_runtime/lower(job_runtime+postprocessing_runtime)
-    slurm_jobfarming_chunks = 3
+    slurm_jobfarming_chunks = 10
 elif slurm_mode == "PRODUCTION":
     print("Building a slurm script for a PRODUCTION run")
     # parameters for GENERAL runs
@@ -77,7 +77,7 @@ elif slurm_mode == "PRODUCTION":
     tp_slurm_partition = "general"
     tp_slurm_nodes = "48"
     #  adapt the mesh
-    tp_params_mesh = "mesh_topo1km_7_faults_smoothed_v3_smallz_1hz"
+    tp_params_mesh = "mesh_AltoTiberina_1Hz"
     tp_params_endTime= "90.0"
     slurm_jobfarming_chunks = 10
     #  if tp_slurm_nodes= 96, slurm_jobfarming_chunks= 20
@@ -88,7 +88,7 @@ if user_name == "IRIS":
     print("Building a slurm script for Iris")
     tp_slurm_account = 'di35ban'
     tp_slurm_email = 'iris.christadler@lmu.de'
-    tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs2'
+    tp_output_file_dir= '/hppfs/scratch/0A/di35ban/AltoTiberina/outputs'
 elif user_name == "MATHILDE":
     print("Building a slurm script for Mathilde")
     tp_slurm_account = 'ra35zih2'
@@ -98,26 +98,11 @@ elif user_name == "MATHILDE":
 else:
     print("No known USER")
 
-# This is not used, since we use jobFarming instead
-'''
-slurm_runs_csv_file_dir= "../Outputs"
-slurm_runs_entries={"scheduled?": "False", 
-                    "running?": "False",
-                    "finished?": "False",
-                    "job_submission_time":"False",
-                    "job_start_time": "False",
-                    "job_end_time": "False",
-                    "job_return_value": "False",
-                    "cpu_budget": "NaN",
-                    }
-'''
-
 # Allow the user to specify in which order the jobs will be submitted
 # if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
 # slurm_job_list= [2, 12, 22]
-# slurm_job_list=[]
-slurm_job_list= list(range(100))
+slurm_job_list= list(range(10))
 # print(f"slurm_job_list: {slurm_job_list}")
 
 

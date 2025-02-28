@@ -51,7 +51,7 @@ refinement = 0
 /
             
 &MeshNml
-MeshFile = '../../mesh/{{tp_params_mesh}}'                ! Name of mesh file
+MeshFile = '../mesh/{{tp_params_mesh}}'                ! Name of mesh file
 meshgenerator = 'PUML'                         ! Name of meshgenerator (Gambit3D-fast, Netcdf or PUML)
 /
 
@@ -74,7 +74,7 @@ TimeInterval =  100.                           ! Index of printed info at time
 refinement = 0
 
 ! off-fault ascii receivers
-RFileName = '../../mesh/receiver_{{tp_params_mesh}}'    ! Record Points in extra file
+RFileName = '../mesh/receiver_{{tp_params_mesh}}.txt'    ! Record Points in extra file
 pickdt = 0.01                                  ! Pickpoint Sampling
 pickDtType = 1                                 ! Pickpoint Type
 ! (Optional) Synchronization point for receivers.
@@ -84,7 +84,7 @@ ReceiverOutputInterval = 1.0
 ! Free surface output
 SurfaceOutput = 1
 SurfaceOutputRefinement = 0
-SurfaceOutputInterval = 0.02
+SurfaceOutputInterval = 0.01
 
 printIntervalCriterion = 2          ! Criterion for index of printed info: 1=timesteps,2=time,3=timesteps+time
 
@@ -95,7 +95,7 @@ xdmfWriterBackend = 'posix' ! (optional) The backend used in fault, wavefield,
 
 EnergyOutput = 1 ! Computation of energy, written in csv file
 EnergyTerminalOutput = 1 ! Write energy to standard output
-EnergyOutputInterval = 0.02
+EnergyOutputInterval = 0.01
 /
 
 &AbortCriteria

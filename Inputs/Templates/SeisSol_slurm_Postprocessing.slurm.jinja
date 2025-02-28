@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job Name and Files (also --job-name)
-#SBATCH -J {{job_name}}_jobFarm
+#SBATCH -J {{job_name}}_postProcessing
 #SBATCH -o ./%j.%x.%N.out
 #SBATCH -e ./%j.%x.%N.err
 
@@ -49,16 +49,14 @@ source /etc/profile.d/modules.sh
 echo 'num_nodes:' $SLURM_JOB_NUM_NODES 'ntasks:' $SLURM_NTASKS 'cpus_per_task:' $SLURM_CPUS_PER_TASK
 ulimit -Ss 2097152
 
-array=(  {{job_list}} )
-for i in "${array[@]}"
+cd {{tp_output_file_dir}}; pwd
+
+for i in {0000..0099}; do
 do
         echo "ID: $i"
         cd $i
-        mkdir -p {{tp_output_file_dir}}/$i/
-        srun -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
-        myfile={{tp_output_file_dir}}/$i/$i-surface.xdmf
+        myfile=$i-surface.xdmf
         echo "Myfile: $myfile"
-        cd {{tp_output_file_dir}}/$i/
 #       Step 1:
 #       srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP {{tp_slurm_nodes}}
         {{postprocessing_cmd1}}
@@ -67,14 +65,8 @@ do
 #       This will create a file named $filenameprefix-surface-resampled.xdmf
 #       python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time {{tp_params_endTime_int}}
         {{postprocessing_cmd2}}
-#       rm $myfile
-        pwd
-        echo "cd -"
-        cd -
-        pwd
         echo "cd .."
-        cd ..
-        pwd
+        cd ..; pwd
 done
 
 

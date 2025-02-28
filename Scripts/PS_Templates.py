@@ -23,8 +23,8 @@ class PS_Template:
         # it would also be possible to just go through the template folder
         # and automatically build the dir's (but this could be done later)
         # either for all templates or for all templates from a list
-        shutil.rmtree("../Outputs/")
-        os.mkdir("../Outputs/")
+        shutil.rmtree("../Catalogue/")
+        os.mkdir("../Catalogue/")
 
 
     def build_new_slurm_templates(self, job_list):
@@ -55,7 +55,7 @@ class PS_Template:
             print(f" id: {id} curr_job_list: {curr_job_list}")
 
             # SLURM_JOB_FARMING
-            with open(f"../Outputs/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
+            with open(f"../Catalogue/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
                 f.write(slurm_tmpl.render(job_name = tp_job_name,
                                           job_list= curr_job_list,
                                           group= tp_slurm_group,
@@ -76,7 +76,7 @@ class PS_Template:
             slurm_tmpl = Template(f.read())
 
         # SLURM file for each directory
-        with open(f"../Outputs/{id:{self.digits}}/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
+        with open(f"../Catalogue/{id:{self.digits}}/{tp_job_name}_{id:{self.digits}}.slurm", mode="w") as f:
             f.write(slurm_tmpl.render(job_name = tp_job_name,
                                       job_id= f"{id:{self.digits}}",
                                       group= tp_slurm_group,
@@ -88,7 +88,7 @@ class PS_Template:
         with (open(f"../Inputs/Templates/{tp_parameters}") as f):
             slurm_tmpl = Template(f.read())
 
-        with open(f"../Outputs/{id:{self.digits}}/parameters.par", mode="w") as f:
+        with open(f"../Catalogue/{id:{self.digits}}/parameters.par", mode="w") as f:
             f.write(slurm_tmpl.render(id = f"{id:{self.digits}}",
                                       tp_output_file_dir= tp_output_file_dir,
                                       tp_params_mesh= tp_params_mesh,
@@ -101,7 +101,7 @@ class PS_Template:
             slurm_tmpl = Template(f.read())
 
         # SLURM file for postprocessing (GMP+visualization)
-        with open(f"../Outputs/{tp_postprocessing}", mode="w") as f:
+        with open(f"../Catalogue/{tp_postprocessing}", mode="w") as f:
             f.write(slurm_tmpl.render(job_name = tp_job_name,
                                       group= tp_slurm_group,
                                       account= tp_slurm_account,
@@ -114,12 +114,12 @@ class PS_Template:
 
     def build_all_templates(self, id):
         # create a directory for the jobId in folder "Outputs"
-        Path(f"../Outputs/{id:{self.digits}}").mkdir(parents=True, exist_ok=True)
+        Path(f"../Catalogue/{id:{self.digits}}").mkdir(parents=True, exist_ok=True)
 
         # copy over all files that need no adjustment
         #  from ../Inputs/Files to ../Outputs/{id}
         src_dir  = "../Inputs/Files/"
-        dest_dir = f"../Outputs/{id:{self.digits}}"
+        dest_dir = f"../Catalogue/{id:{self.digits}}"
         # files = os.listdir(src_dir)
         shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
 
@@ -141,7 +141,7 @@ class PS_Template:
             with (open(f'../Inputs/Templates/{tmpl_name}.jinja') as f):
                 tmpl = Template(f.read())
 
-            with open(f"../Outputs/{id:{self.digits}}/{tmpl_name}", mode="w") as f:
+            with open(f"../Catalogue/{id:{self.digits}}/{tmpl_name}", mode="w") as f:
                 f.write(tmpl.render(**kwargs))
 
         # build slurm submission script

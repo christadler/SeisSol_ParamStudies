@@ -14,11 +14,11 @@ python -m pip install -r requirements.txt
 ```
 The setup currently uses SuperMUC-NG (LRZ, Munich, Germany). 
 Please refer to the manual or get in touch with us if you would like to use different hardware.
-Otherwise just run 'Scripts/main.py' to generate an 'Outputs' directory with all input files and slurm scripts.
+Otherwise just run 'Scripts/main.py' to generate a 'Catalogue' directory with all input files and slurm scripts.
 
 ## SeisSol 
 
-SeisSol needs to be available on the target machine (installed at ~/SeisSol). Make binaries available in 'Outputs/seissol_bin/'
+SeisSol needs to be available on the target machine (installed at ~/SeisSol). Make binaries available in 'Catalogue/seissol_bin/'
 
 ## Input Mesh and asagi_file
 
@@ -26,7 +26,7 @@ The input mesh and the asagi file are available via the Geo-INQUIRE Simulation D
 https://sdl-dev.hpc.cineca.it/app/experiments/483/versions/1.0.0/summary
 Remark: (Until the SDL mints DOIs) only accessible for collaborators, pls get in touch if we should add your SDL account.
 
-Download them to 'Outputs/mesh/' and 'Outputs/asagi_file' respectively.
+Download them to 'Catalogue/mesh/' and 'Catalogue/asagi_file' respectively.
 
 # Run
 

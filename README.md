@@ -25,6 +25,7 @@ SeisSol needs to be available on the target machine (installed at ~/SeisSol). Ma
 The input mesh and the asagi file are available via the Geo-INQUIRE Simulation Data Lake (SDL):
 https://sdl-dev.hpc.cineca.it/app/experiments/483/versions/1.0.0/summary
 Remark: (Until the SDL mints DOIs) only accessible for collaborators, pls get in touch if we should add your SDL account.
+
 Download them to 'Outputs/mesh/' and 'Outputs/asagi_file' respectively.
 
 # Run
@@ -34,4 +35,4 @@ Simply submit the generated slurm scripts with 'sbatch AltoTiberina*slurm'.
 # Manual 
 
 A Manual to adapt the workflow to *arbitrary parameter studies*
-can be found in the README directory.
+can be found in the README directory. It will also be useful to move the workflow to different hardware.

@@ -23,8 +23,8 @@ SeisSol needs to be available on the target machine (installed at ~/SeisSol). Ma
 ## Input Mesh and asagi_file
 
 The input mesh and the asagi file are available via the Geo-INQUIRE Simulation Data Lake (SDL):
-https://sdl-dev.hpc.cineca.it/app/experiments/483/versions/1.0.0/summary
-Remark: (Until the SDL mints DOIs) only accessible for collaborators, pls get in touch if we should add your SDL account.
+https://sdl-dev.hpc.cineca.it/app/experiments/483/summary
+Remark: (Until the SDL mints DOIs) only accessible in the "dev"-part of the SDL.
 
 Download them to 'Catalogue/mesh/' and 'Catalogue/asagi_file' respectively.
 

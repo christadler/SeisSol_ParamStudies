@@ -60,12 +60,12 @@ do
 #       Step 1:
         echo "Postprocessing Step1: ComputeGroundMotionParameters"
 #       srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 
-        srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 16
+        srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
 
 #       Step 2:
         echo "Postprocessing Step2: Visualization"
-#       This will create a file named $filenameprefix_final_displacement.xdmf
-#       python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time (outdated)
+#       This will create a file named $filenameprefix_final_displacement-surface.xdmf
+#       seissol_output_extractor $myfile --var u1 u2 u3 --time "i-1" --add2prefix _final_displacement
         seissol_output_extractor $myfile --var u1 u2 u3 --time "i-1" --add2prefix _final_displacement
 
         cd ..; pwd

@@ -3,7 +3,7 @@
 """
 
 slurm_modes= ("TEST", "PRODUCTION")
-slurm_mode= "TEST"
+slurm_mode= "PRODUCTION"
 user_names= ("IRIS", "MATHILDE")
 user_name= "IRIS"
 

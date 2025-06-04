@@ -51,7 +51,7 @@ refinement = 0
 /
             
 &MeshNml
-MeshFile = '../mesh/mesh_AltoTiberina_small'                ! Name of mesh file
+MeshFile = '../mesh/mesh_AltoTiberina_1Hz'                ! Name of mesh file
 meshgenerator = 'PUML'                         ! Name of meshgenerator (Gambit3D-fast, Netcdf or PUML)
 /
 
@@ -74,7 +74,7 @@ TimeInterval =  100.                           ! Index of printed info at time
 refinement = 0
 
 ! off-fault ascii receivers
-RFileName = '../mesh/receiver_mesh_AltoTiberina_small.txt'    ! Record Points in extra file
+RFileName = '../mesh/receiver_mesh_AltoTiberina_1Hz.txt'    ! Record Points in extra file
 pickdt = 0.01                                  ! Pickpoint Sampling
 pickDtType = 1                                 ! Pickpoint Type
 ! (Optional) Synchronization point for receivers.
@@ -99,7 +99,7 @@ EnergyOutputInterval = 0.01
 /
 
 &AbortCriteria
-EndTime = 3.0
+EndTime = 90.0
 /
 
 &Analysis

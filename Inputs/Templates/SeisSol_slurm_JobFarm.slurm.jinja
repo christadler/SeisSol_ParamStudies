@@ -64,10 +64,11 @@ do
         {{postprocessing_cmd1}}
 
 #       Step 2:
-#       This will create a file named $filenameprefix-surface-resampled.xdmf
+#       This will create a file named $filenameprefix_final_displacement-surface.xdmf
 #       python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time {{tp_params_endTime_int}}
+#       seissol_output_extractor $myfile --var u1 u2 u3 --time "i-1" --add2prefix _final_displacement
         {{postprocessing_cmd2}}
-#       rm $myfile
+
         pwd
         echo "cd -"
         cd -

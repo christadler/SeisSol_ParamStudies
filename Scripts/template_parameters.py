@@ -3,7 +3,7 @@
 """
 
 slurm_modes= ("TEST", "PRODUCTION")
-slurm_mode= "PRODUCTION"
+slurm_mode= "TEST"
 user_names= ("IRIS", "MATHILDE")
 user_name= "IRIS"
 
@@ -114,9 +114,10 @@ slurm_job_list= list(range(10))
 # myfile='outputnew/AltoTiberina_1DLatorre_Ro070_us037_Dc04_nuc2-surface.xdmf'
 # srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
 postprocessing_cmd1= 'srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP '+tp_slurm_nodes
+postprocessing_cmd2= 'seissol_output_extractor $myfile --var u1 u2 u3 --time "i-1" --add2prefix _final_displacement'
 # postprocessing_cmd1= "/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py"
-postprocessing_cmd2= 'python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time '+str(int(float(tp_params_endTime)))
-# postprocessing_cmd2= "srun python -u
+# postprocessing_cmd2= 'python ~/SeisSol/postprocessing/visualization/tools/extractDataFromUnstructuredOutput.py $myfile --Data u1 u2 u3 --time '+str(int(float(tp_params_endTime)))
+
 
 """
     Step 4: Upload to SDL

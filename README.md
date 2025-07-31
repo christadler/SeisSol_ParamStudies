@@ -12,9 +12,15 @@ a catalogue for AltoTiberina. It can be used as is for DT-Geo or easily be adapt
 ```bash
 python -m pip install -r requirements.txt
 ```
+
+## Run main.py
 The setup currently uses SuperMUC-NG (LRZ, Munich, Germany). 
 Please refer to the manual or get in touch with us if you would like to use different hardware.
-Otherwise just run 'Scripts/main.py' to generate a 'Catalogue' directory with all input files and slurm scripts.
+Otherwise just run 
+```bash
+python3 Scripts/main.py
+```
+to generate a 'Catalogue' directory with all input files and slurm scripts.
 
 ## SeisSol 
 
@@ -23,13 +29,11 @@ SeisSol needs to be available on the target machine (installed at ~/SeisSol). Ma
 ## Input Mesh and asagi_file
 
 The input mesh and the asagi file are available via the Geo-INQUIRE Simulation Data Lake (SDL):
-https://sdl-dev.hpc.cineca.it/app/experiments/483/summary
-Remark: (Until the SDL mints DOIs) only accessible in the "dev"-part of the SDL.
-
+https://doi.org/10.82554/sdl-48 
 Download them to 'Catalogue/mesh/' and 'Catalogue/asagi_file' respectively.
 
-# Run
 
+# Submit Slurm jobs
 Simply submit the generated slurm scripts with 'sbatch AltoTiberina*slurm'.
 
 # Manual 

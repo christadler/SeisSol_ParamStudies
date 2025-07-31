@@ -6,7 +6,7 @@
 
 # Notification and type
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=iris.christadler@lmu.de
+#SBATCH --mail-user=marchandon@geophysik.uni-muenchen.de
 
 # (Group) Account, (max) Wall clock and Queue:
 #SBATCH --account=pn49ha
@@ -49,7 +49,7 @@ source /etc/profile.d/modules.sh
 echo 'num_nodes:' $SLURM_JOB_NUM_NODES 'ntasks:' $SLURM_NTASKS 'cpus_per_task:' $SLURM_CPUS_PER_TASK
 ulimit -Ss 2097152
 
-cd /hppfs/scratch/0A/di35ban/AltoTiberina/outputs; pwd
+cd /hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs; pwd
 
 for i in {0000..0099}; do
 do

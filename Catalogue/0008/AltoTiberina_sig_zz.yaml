@@ -8,4 +8,4 @@
     components: !FunctionMap
       map: 
         sig_zz: |
-         return 2670.0*(1.0-0.7)*9.8*min(-200.0,z);
+         return 2670.0*(1.0-0.6)*9.8*min(-200.0,z);

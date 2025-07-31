@@ -2,7 +2,7 @@
   returns: [forced_rupture_time]
   function: |
       function f (x)
-        xha = { 295214,4817590,-8238 }
+        xha = { 295214.0,4817590.0,-8238.0 }
         r_crita = 2500.0
         ra = math.sqrt((x["x"]-xha[1])^2 + (x["y"]-xha[2])^2 + (x["z"]-xha[3])^2 )
         Vs = 3464.0

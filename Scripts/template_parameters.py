@@ -5,7 +5,7 @@
 slurm_modes= ("TEST", "PRODUCTION")
 slurm_mode= "PRODUCTION"
 user_names= ("IRIS", "MATHILDE")
-user_name= "IRIS"
+user_name= "MATHILDE"
 
 """
     Step 1: Parameters & templates
@@ -16,7 +16,8 @@ user_name= "IRIS"
 # other lines:<id> <parameter1_value> <parameter2_value> ... <parameterN_value> <True/False>
 # stored in dir "../Input/"
 parameter_study_csv_file_dir= "../Inputs"
-parameter_study_csv_file= "parameter_study_list.csv"
+parameter_study_csv_file= "parameter_study_list_100runs_MM.csv"
+#  TODO: adjust slurm_job_list
 
 # list of all parameters from the cvs file
 # Todo: Generate tp_param_list from input_csv_file some day (all column names wo "id")
@@ -99,10 +100,11 @@ else:
     print("No known USER")
 
 # Allow the user to specify in which order the jobs will be submitted
-# if this list is empty, it will be filled in class PS_SlurmRun with all ids
+# TODO: if this list is empty, it will be filled in class PS_SlurmRun with all ids
 # slurm_job_list = [ <id1>, <id2>, ... , <idN>]
 # slurm_job_list= [2, 12, 22]
-slurm_job_list= list(range(10))
+#  slurm_job_list= list(range(10))
+slurm_job_list= list(range(100))
 # print(f"slurm_job_list: {slurm_job_list}")
 
 

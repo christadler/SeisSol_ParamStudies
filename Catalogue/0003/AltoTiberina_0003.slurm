@@ -6,7 +6,7 @@
 
 # Notification and type
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=iris.christadler@lmu.de
+#SBATCH --mail-user=marchandon@geophysik.uni-muenchen.de
 
 # (Group) Account, (max) Wall clock and Queue:
 #SBATCH --account=pn49ha
@@ -52,6 +52,6 @@ ulimit -Ss 2097152
 
 # TODO: Copy file ../Outputs/job_name_job_id.par to the right directory
 # TODO: Or maybe better: set working_dir in the beginning to something useful
-mkdir -p /hppfs/scratch/0A/di35ban/AltoTiberina/outputs/0003/
+mkdir -p /hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs/0003/
 srun -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
 #mpiexec -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par

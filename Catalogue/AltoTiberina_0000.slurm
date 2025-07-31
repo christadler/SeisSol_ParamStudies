@@ -6,7 +6,7 @@
 
 # Notification and type
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=iris.christadler@lmu.de
+#SBATCH --mail-user=marchandon@geophysik.uni-muenchen.de
 
 # (Group) Account, (max) Wall clock and Queue:
 #SBATCH --account=pn49ha
@@ -54,11 +54,11 @@ for i in "${array[@]}"
 do
         echo "ID: $i"
         cd $i
-        mkdir -p /hppfs/scratch/0A/di35ban/AltoTiberina/outputs/$i/
+        mkdir -p /hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs/$i/
         srun -n $SLURM_NTASKS ../seissol_bin/SeisSol_Release_dskx_4_elastic parameters.par
-        myfile=/hppfs/scratch/0A/di35ban/AltoTiberina/outputs/$i/$i-surface.xdmf
+        myfile=/hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs/$i/$i-surface.xdmf
         echo "Myfile: $myfile"
-        cd /hppfs/scratch/0A/di35ban/AltoTiberina/outputs/$i/
+        cd /hppfs/work/pn49ha/ra35zih2/AltoTiberina/outputs/$i/
 #       Step 1:
 #       srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48
         srun python -u ~/SeisSol/postprocessing/science/GroundMotionParametersMaps/ComputeGroundMotionParametersFromSurfaceOutput_Hybrid.py $myfile --MP 48

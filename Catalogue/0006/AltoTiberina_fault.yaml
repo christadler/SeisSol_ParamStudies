@@ -12,7 +12,7 @@
       groups: [65]
       components: !ConstantMap
         map:
-          mu_s: 0.45
+          mu_s: 0.4
     - !ConstantMap
         map:
           mu_s: 0.6

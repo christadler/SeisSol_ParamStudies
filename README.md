@@ -34,7 +34,11 @@ Download them to 'Catalogue/mesh/' and 'Catalogue/asagi_file' respectively.
 
 
 # Submit Slurm jobs
-Simply submit the generated slurm scripts with 'sbatch AltoTiberina*slurm'.
+For a last double check:
+* Check whether the input directory is correct
+* Check your name/account, the project id and your email address
+* Make sure that the root output directory exists and is empty
+Then submit the generated slurm scripts with 'sbatch AltoTiberina*slurm'.
 
 # Manual 
 
